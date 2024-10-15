@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block all_professors %}
+
+<h3> All professors </h3>
+<br>
+
+{% if request.user.role.name == "Administrator" %} 
+<a class="btn btn-success" href="{% url 'add_professor' %}"> Add </a>
+<br> <br>
+{% endif %}
+
+<table class="table">
+    <tr>
+        <th> First name </th>
+        <th> Last name </th>
+        <th> Email </th>
+        <th> Actions </th>
+    </tr>
+
+    {% for professor in professors %}
+
+    <tr>
+        <td> {{professor.first_name}} </td>
+        <td> {{professor.last_name}} </td>
+        <td> {{professor.email}} </td>
+        <td>
+            <a class="btn btn-primary" href="{% url 'user_details' professor.id %}"> <i class="fa fa-info-circle"></i> Details </a>
+            {% if request.user.role.name == "Administrator" %}  
+            <a class="btn btn-secondary" href="{% url 'edit_user' professor.id %}"> <i class="fa fa-edit"></i> Edit </a>
+            <a class="btn btn-danger" href="{% url 'delete_user' professor.id %}"> <i class="fa fa-trash"></i> Delete </a>
+            {% endif %}
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+
+

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Student Management</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <ul class="navbar-nav mr-auto">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="navbar-brand" href="{%  url 'index' %}"> Home </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'subjects' %}"> Subjects </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all_professors' %}"> Professors </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all_students' %}"> Students </a>
+            </li>
+            {% if request.user.role.name == "Professor" %}  
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'subjects_by_professor' %}"> My Subjects </a>
+            </li>
+            {% endif %}
+            {% if request.user.role.name == "Student" %}  
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'my_student_enrollments' %}"> My Enrollments </a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item">
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger"> Logout </button>
+                </form>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="d-flex justify-content-center mt-5">
+        <div>
+            {% block login %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block logout %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block index %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block all_subjects %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block subject_details %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block edit_subject %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block add_subject %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block delete_subject %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block all_professors %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block add_professor %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block user_details %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block edit_user %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block delete_user %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block all_students %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block add_student %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block student_enrollments %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block update_enrollment_status %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block subject_enrollments %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block subjects_by_professor %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block my_student_enrollments %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block students_over_30_ects %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block students_by_status %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block students_passed_over_10_ects %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block students_details_over_10_ects %}
+            {% endblock %}
+        </div>
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block delete_user %}
+
+<h2> User removal </h2>
+<hr>
+
+{% if user.role.name == "Professor" %}
+<a class="btn btn-link mr-2" href="{% url 'all_professors' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+{% elif user.role.name == "Student" %}
+<a class="btn btn-link mr-2" href="{% url 'all_students' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {% if user.role.name == "Professor" %}
+    <p> Are you sure you want to delete professor <b>{{user.first_name}} {{user.last_name}}</b>? </p>
+    {% elif user.role.name == "Student" %}
+    <p> Are you sure you want to delete student <b>{{user.first_name}} {{user.last_name}}</b>? </p>
+    {% endif %}
+
+    <button class="btn btn-danger mr-2" type="submit" name="confirm_delete"> Yes </button>
+    <button class="btn btn-primary" type="submit" name="abort_delete"> No </button>
+</form>
+
+{% endblock %}

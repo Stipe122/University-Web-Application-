@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block update_enrollment_status %}
+
+<h3> Change enrollment status </h3>
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    {% if request.user.role.name != "Student" %}
+    <p>
+        Are you sure you want to change <b>{{enrollment.student.first_name}} {{enrollment.student.last_name}}</b>'s status
+        on subject <b>{{enrollment.subject.name}}</b> from {{enrollment.status}} to <b>{{new_status}}</b>?
+    </p>
+    {% else %}
+    <p> Are you sure you want to change status on subject <b>{{enrollment.subject.name}}</b> from {{enrollment.status}} to <b>{{new_status}}</b>? </p>
+    {% endif %}
+    <button class="btn btn-primary" type="submit" name="Yes"> Yes </button>
+    <button class="btn btn-danger" type="submit" name="No"> No </button>
+</form>
+
+{% endblock %}

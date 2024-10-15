@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block student_enrollments %}
+
+<h2> Student Enrollments </h2>
+<br>
+<h4> {{student.first_name}} {{student.last_name}} </h4>
+<br>
+
+<table class="table">
+    <tr>
+        <th> Name </th>
+        <th> ECTS </th>
+        <th> Status </th>
+        <th> Actions </th>
+    </tr>
+    
+    {% if student.status == "Regular" %}
+        {% for semester in regular_semesters %}
+            <tr>
+                <th> {{semester}}. Semester </th>
+
+            </tr>
+
+            {% for enrollment in enrollments %}
+                {% if enrollment.subject.semester_regular == semester %}
+                    <tr>
+                        <td> {{enrollment.subject.name}} </td>
+                        <td> {{enrollment.subject.ects}} </td>
+                        <td> {{enrollment.status}} </td>
+                        <td>
+                            {% if enrollment.status == "Not enrolled" %}
+                                <a class="btn btn-primary" href="{% url 'update_enrollment_status' enrollment.id 'Enrolled' %}"> <i class="fa fa-edit"></i> Enroll </a>
+                            {% elif enrollment.status == "Enrolled" %}
+                                <a class="btn btn-success" href="{% url 'update_enrollment_status' enrollment.id 'Passed' %}"> <i class="fa fa-check-circle"></i> Passed </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Not Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                            {% elif enrollment.status == "Passed" %}
+                                <a class="btn btn-primary" href="{% url 'update_enrollment_status' enrollment.id 'Enrolled' %}"> <i class="fa fa-edit"></i> Enrolled </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Not Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                            {% elif enrollment.status == "Not passed" %}
+                                <a class="btn btn-primary" href="{% url 'update_enrollment_status' enrollment.id 'Enrolled' %}"> <i class="fa fa-edit"></i> Enrolled </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                            {% else %}
+                                <a class="btn btn-success" href="{% url 'update_enrollment_status' enrollment.id 'Passed' %}"> <i class="fa fa-check-circle"></i> Passed </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Not Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                        
+                            {% endif %}
+                            
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    
+    {% elif student.status == "Part time" %}
+        {% for semester in part_time_semesters %}
+            <tr>
+                <th> {{semester}}. Semester </th>
+            </tr>
+            {% for enrollment in enrollments %}
+                {% if enrollment.subject.semester_part_time == semester %}
+                    <tr>
+                        <td> {{enrollment.subject.name}} </td>
+                        <td> {{enrollment.subject.ects}} </td>
+                        <td> {{enrollment.status}} </td>
+                        <td>
+                            {% if enrollment.status == "Not enrolled" %}
+                                <a class="btn btn-primary" href="{% url 'update_enrollment_status' enrollment.id 'Enrolled' %}"> <i class="fa fa-edit"></i> Enroll </a>
+                            {% elif enrollment.status == "Enrolled" %}
+                                <a class="btn btn-success" href="{% url 'update_enrollment_status' enrollment.id 'Passed' %}"> <i class="fa fa-check-circle"></i> Passed </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Not Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                            {% elif enrollment.status == "Passed" %}
+                                <a class="btn btn-primary" href="{% url 'update_enrollment_status' enrollment.id 'Enrolled' %}"> <i class="fa fa-edit"></i> Enrolled </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Not Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                            {% elif enrollment.status == "Not passed" %}
+                                <a class="btn btn-primary" href="{% url 'update_enrollment_status' enrollment.id 'Enrolled' %}"> <i class="fa fa-edit"></i> Enrolled </a>
+                                <a class="btn btn-success" href="{% url 'update_enrollment_status' enrollment.id 'Passed' %}"> <i class="fa fa-times-circle"></i> Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                            {% else %}
+                                <a class="btn btn-success" href="{% url 'update_enrollment_status' enrollment.id 'Passed' %}"> <i class="fa fa-check-circle"></i> Passed </a>
+                                <a class="btn btn-secondary" href="{% url 'update_enrollment_status' enrollment.id 'Not Passed' %}"> <i class="fa fa-times-circle"></i> Not Passed </a>
+                                <a class="btn btn-danger" href="{% url 'update_enrollment_status' enrollment.id 'Not enrolled' %}"> <i class="fa fa-sign-out"></i> Unroll </a>
+                        
+                            {% endif %}
+                            
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    
+</table>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block delete_subject %}
+
+<h3> Delete subject </h3>
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    <p> Are you sure you want to delete subject <b>{{subject.name}}</b>? </p>
+    <button class="btn btn-danger" type="submit" name="delete_confirm"> Yes </button>
+    <button class="btn btn-primary" type="submit" name="delete_abort"> No </button>
+</form>
+
+
+{% endblock %}

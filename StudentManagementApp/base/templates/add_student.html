@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block add_student %}
+
+
+<h2> Add new student </h2>
+<hr>
+
+<a class="btn btn-link" href="{% url 'all_students' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+<br> <br>
+
+<form method="POST">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <th> First name </th>
+            <td> {{form.first_name}} </td>
+        </tr>
+        <tr>
+            <th> Last name </th>
+            <td> {{form.last_name}} </td>
+        </tr>
+        <tr>
+            <th> Username </th>
+            <td> {{form.username}} </td>
+        </tr>
+        <tr>
+            <th> Email </th>
+            <td> {{form.email}} </td>
+        </tr>
+        <tr>
+            <th> Password </th>
+            <td> {{form.password}} </td>
+        </tr>
+        <tr>
+            <th> Status </th>
+            <td> {{form.status}} </td>
+        </tr>
+
+        <input type="hidden" name="role" value="3">
+
+    </table>
+    <button class="btn btn-primary" type="submit"> Submit </button>
+</form>
+
+{% endblock %}

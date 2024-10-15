@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block login %}
+
+<form method="POST">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <th> Username </th>
+            <td> {{form.username}} </td>
+        </tr>
+        <tr>
+            <th> Password </th>
+            <td> {{form.password}} </td>
+        </tr>
+    </table>
+    <!-- {{form.as_p}} -->
+    <button class="btn btn-primary" type="submit"> Log in </button>
+</form>
+
+{% endblock %}

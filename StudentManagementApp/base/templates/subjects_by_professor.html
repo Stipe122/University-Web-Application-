@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block subjects_by_professor %}
+
+<h3> Subjects by {{professor.first_name}} {{professor.last_name}} </h3>
+<br>
+
+<table class="table">
+    <tr>
+        <th> Code </th>
+        <th> Name </th>
+        <th> ECTS </th>
+        <th> Actions </th>
+    </tr>
+    {% for subject in subjects %}
+    <tr>
+        <td> {{subject.code}} </td>
+        <td> {{subject.name}} </td>
+        <td> {{subject.ects}} </td>
+        <td>
+            <a class="btn btn-primary" href="{% url 'subject_details' subject.id %}"> <i class="fa fa-info-circle"></i> Details </a>
+            <a class="btn btn-warning" href="{% url 'subject_enrollments' subject.id %}"> Enrollments </a>
+
+        </td>
+    </tr>
+    
+
+    {% endfor %}
+</table>
+
+{% endblock %}

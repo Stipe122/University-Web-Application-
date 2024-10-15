@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block students_passed_over_10_ects %}
+
+<h3> Number of Students Passed Over 10 ECTS </h3>
+<hr>
+
+<p> Total number of students who have passed more than 10 ECTS credits: <a href="{% url 'students_details_over_10_ects' %}">{{ qualifying_students }}</a> </p>
+
+{% endblock %}

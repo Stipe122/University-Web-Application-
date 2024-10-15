@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block all_students %}
+
+<h3> Student list </h3>
+<hr>
+
+{% if request.user.role.name == "Administrator" %} 
+<a class="btn btn-success" href="{% url 'add_student' %}"> <i class="fa fa-plus-square"></i> Add </a>
+<a class="btn btn-primary" href="{% url 'students_by_status' 'Regular'%}"> <i class="fa fa-edit"></i> Regular </a>
+<a class="btn btn-primary" href="{% url 'students_by_status' 'Part time'%}"> <i class="fa fa-edit"></i> Part time </a>
+<br> <br>
+{% endif %}
+
+<table class="table">
+    <tr>
+        <th> First name </th>
+        <th> Last name </th>
+        <th> Email </th>
+        <th> Status </th>
+        <th> Actions </th>
+    </tr>
+
+    {% for student in students %}
+
+    <tr>
+        <td> {{student.first_name}} </td>
+        <td> {{student.last_name}} </td>
+        <td> {{student.email}} </td>
+        <td> {{student.status}} </td>
+        <td>
+            <a class="btn btn-primary" href="{% url 'user_details' student.id %}"> <i class="fa fa-info-circle"></i> Details </a>
+            {% if request.user.role.name == "Administrator" %}   
+            <a class="btn btn-secondary" href="{% url 'edit_user' student.id %}"> <i class="fa fa-edit"></i> Edit </a>
+            <a class="btn btn-danger" href="{% url 'delete_user' student.id %}"> <i class="fa fa-trash"></i> Delete </a>
+            <a class="btn btn-warning" href="{% url 'student_enrollments' student.id %}"> <i class="fa fa-book"></i> Enrollments </a>
+            {% endif %}
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

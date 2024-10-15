@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block edit_user %}
+
+<h2> Edit user </h2>
+<hr>
+
+{% if user.role.name == "Professor" %}
+<a class="btn btn-link mr-2" href="{% url 'all_professors' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+{% elif user.role.name == "Student" %}
+<a class="btn btn-link mr-2" href="{% url 'all_students' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    <table class="table">
+        <tr>
+            <th> First name </th>
+            <td> {{form.first_name}} </td>
+        </tr>
+        <tr>
+            <th> Last name </th>
+            <td> {{form.last_name}} </td>
+        </tr>
+        <tr>
+            <th> Username </th>
+            <td> {{form.username}} </td>
+        </tr>
+        <tr>
+            <th> Email </th>
+            <td> {{form.email}} </td>
+        </tr>
+        {% if user.role.name == "Student" %}
+        <tr>
+            <th> Status </th>
+            <td> {{form.status}} </td>
+        </tr>
+        {% endif %}
+    </table>
+    <button class="btn btn-primary" type="submit"> Submit </button>
+</form>
+
+{% endblock %}
+
+
+
+

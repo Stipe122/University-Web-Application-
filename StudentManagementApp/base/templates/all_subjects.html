@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block all_subjects %}
+
+<h3> All subjects </h3>
+<br>
+{% if request.user.role.name == "Administrator" %}          
+<a class="btn btn-success" href="{% url 'add_subject' %}"> Add </a>
+<br> <br>
+{% endif %}
+
+<table class="table">
+    <tr>
+        <th> Code </th>
+        <th> Name </th>
+        <th> ECTS </th>
+        <th> Actions </th>
+    </tr>
+    {% for subject in subjects %}
+    <tr>
+        <td> {{subject.code}} </td>
+        <td> {{subject.name}} </td>
+        <td> {{subject.ects}} </td>
+        <td>
+            <a class="btn btn-primary" href="{% url 'subject_details' subject.id %}"> <i class="fa fa-info-circle"></i> Details </a>
+            {% if request.user.role.name == "Administrator" %}   
+                <a class="btn btn-secondary" href="{% url 'edit_subject' subject.id %}"> <i class="fa fa-edit"></i> Edit </a>
+                <a class="btn btn-danger" href="{% url 'delete_subject' subject.id %}"> <i class="fa fa-trash"></i> Delete </a>
+                {% if request.user.role.name == "Administrator" or subject.lecturer.username == request.user.username %}
+                    <a class="btn btn-warning" href="{% url 'subject_enrollments' subject.id %}"> Enrollments </a>
+                {% endif %}
+            {% elif request.user.role.name == "Professor" and subject.lecturer == request.user%}
+                <a class="btn btn-warning" href="{% url 'subject_enrollments' subject.id %}"> Enrollments </a>
+            {% endif %}
+        </td>
+    </tr>
+    
+
+    {% endfor %}
+</table>
+
+{% endblock %}

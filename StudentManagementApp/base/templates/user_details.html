@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block user_details %}
+
+<h2> User details </h2>
+<hr>
+{% if user.role.name == "Professor" %}
+<a class="btn btn-link mr-2" href="{% url 'all_professors' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+{% elif user.role.name == "Student" %}
+<a class="btn btn-link mr-2" href="{% url 'all_students' %}"> <i class="fa fa-arrow-circle-left"></i> Back </a>
+{% endif %}
+
+<br> <br>
+
+<table class="table">
+    <tr>
+        <th> First name </th>
+        <td> {{user.first_name}} </td>
+    </tr>
+    <tr>
+        <th> Last name </th>
+        <td> {{user.last_name}} </td>
+    </tr>
+    <tr>
+        <th> Username </th>
+        <td> {{user.username}} </td>
+    </tr>
+    <tr>
+        <th> Email </th>
+        <td> {{user.email}} </td>
+    </tr>
+    <tr>
+        <th> Role </th>
+        <td> {{user.role}} </td>
+    </tr>
+    {% if user.role.name == "Student" %}
+    <tr>
+        <th> Status </th>
+        <td> {{user.status}} </td>
+    </tr>
+    {% endif %}
+</table>
+
+{% endblock %}
